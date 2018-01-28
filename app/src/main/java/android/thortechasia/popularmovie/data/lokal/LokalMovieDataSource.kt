@@ -12,7 +12,7 @@ class LokalMovieDataSource(private val popularMovieDao: PopularMovieDao) {
         popularMovieDao.inserts(movies)
     }
 
-    fun getDetailMovie(id: Int) : Deferred<PopularMovieEntity>{
+    fun getDetailMovieAsync(id: Int) : Deferred<PopularMovieEntity>{
         return popularMovieDao.getDetailMovie(id)
     }
 

@@ -28,7 +28,7 @@ class MovieRepository(
     override suspend fun getDetailMovieAsync(id: Int) =
         withContext(Dispatchers.IO) {
             async {
-                val movieDetail = localMovieDataSource.getDetailMovie(id).await()
+                val movieDetail = localMovieDataSource.getDetailMovieAsync(id).await()
                 return@async PopularMovie.from(movieDetail)
             }
         }

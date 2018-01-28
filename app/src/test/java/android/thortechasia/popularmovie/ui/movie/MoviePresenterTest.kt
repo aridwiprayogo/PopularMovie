@@ -4,6 +4,8 @@ import android.thortechasia.popularmovie.domain.model.PopularMovie
 import android.thortechasia.popularmovie.data.repository.MovieRepository
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 import org.mockito.BDDMockito.given
@@ -17,41 +19,42 @@ class MoviePresenterTest{
     private lateinit var presenter: MoviePresenter
     @Mock
     lateinit var repository: MovieRepository
-    @Mock
-    lateinit var view: MovieContract.View
-
 
     @Before
     fun setup(){
         MockitoAnnotations.initMocks(this)
-        presenter = MoviePresenter(repository, CompositeDisposable(),TestSchedulerProvider())
-        presenter.onAttach(view)
+        presenter = MoviePresenter(repository)
     }
 
     @Test
     fun getPopularMovies(){
-        //given
         val movieList = listOf(mock(PopularMovie::class.java))
-        given(repository.getPopularMoviesAsync()).willReturn(Single.just(movieList))
-        //when
-        presenter.getPopularMovies()
-        //then
-        Mockito.verify(view).showLoading()
-        Mockito.verify(repository).getPopularMoviesAsync()
-        Mockito.verify(view).hideLoading()
-        Mockito.verify(view).showPopularMovies(movieList)
-        Mockito.verify(view, Mockito.never()).failureGetPopularMovies(MockitoKotlinHelper.any())
+        runBlocking {
+            //given
+            suspend { given(repository.getPopularMoviesAsync()).willReturn(async { movieList }) }
+
+            //when
+            suspend { presenter.getPopularMovies() }
+
+            //then
+            suspend { Mockito.verify(repository).getPopularMoviesAsync().await() }
+        }
+
     }
 
     @Test
     fun testGetPopularMoviesFailed(){
         val throwable = Throwable("something error")
-        given(repository.getPopularMoviesAsync()).willReturn(Single.error(throwable))
 
-        presenter.getPopularMovies()
+        runBlocking {
+
+            given(repository.getPopularMoviesAsync()).willReturn(async { throwable })
+            presenter.getPopularMovies()
+            Mockito.verify(repository).getPopularMoviesAsync().await()
+        }
+
 
         Mockito.verify(view).showLoading()
-        Mockito.verify(repository).getPopularMoviesAsync()
         Mockito.verify(view).hideLoading()
         Mockito.verify(view).failureGetPopularMovies(throwable)
         Mockito.verify(view, Mockito.never()).showPopularMovies(MockitoKotlinHelper.any())
