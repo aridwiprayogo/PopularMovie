@@ -4,16 +4,16 @@ import kotlinx.coroutines.Deferred
 
 class LokalMovieDataSource(private val popularMovieDao: PopularMovieDao) {
 
-    fun getPopularMovies(): Deferred<List<PopularMovieEntity>> {
-        return popularMovieDao.getPopularMovies()
+    suspend fun getPopularMovies(): Deferred<List<PopularMovieEntity>> {
+        return async{popularMovieDao.getPopularMoviesAsync()}
     }
 
     fun savePopularMovies(movies: List<PopularMovieEntity>){
         popularMovieDao.inserts(movies)
     }
 
-    fun getDetailMovieAsync(id: Int) : Deferred<PopularMovieEntity>{
-        return popularMovieDao.getDetailMovie(id)
+    suspend fun getDetailMovieAsync(id: Int) : Deferred<PopularMovieEntity>{
+        return async{popularMovieDao.getDetailMovieAsync(id)}
     }
 
 }

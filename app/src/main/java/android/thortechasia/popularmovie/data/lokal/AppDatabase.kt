@@ -1,7 +1,7 @@
 package android.thortechasia.popularmovie.data.lokal
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.RoomDatabase
+import androidx.room.Database
+import androidx.room.RoomDatabase
 
 @Database(entities = [PopularMovieEntity::class],
     version = 1)

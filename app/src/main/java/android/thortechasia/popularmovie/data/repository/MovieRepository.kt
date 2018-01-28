@@ -14,22 +14,19 @@ class MovieRepository(
     private val localMovieDataSource: LokalMovieDataSource
 ) : MovieDataSource {
 
-    override suspend fun getPopularMoviesAsync(): Deferred<List<PopularMovie>> {
+    override suspend fun getPopularMoviesAsync(): List<PopularMovie> {
         return withContext(Dispatchers.IO) {
-            async {
-                remoteMovieDataSource.getPopularMoviesAsync().await()
-                    .movies.map {
-                    PopularMovie.from(it)
-                }
+            remoteMovieDataSource.getPopularMoviesAsync().await()
+                .movies.map {
+                PopularMovie.from(it)
             }
         }
     }
 
-    override suspend fun getDetailMovieAsync(id: Int) =
-        withContext(Dispatchers.IO) {
-            async {
-                val movieDetail = localMovieDataSource.getDetailMovieAsync(id).await()
-                return@async PopularMovie.from(movieDetail)
-            }
+    override suspend fun getDetailMovieAsync(id: Int): PopularMovie {
+        return withContext(Dispatchers.IO) {
+            val movieDetail = localMovieDataSource.getDetailMovieAsync(id).await()
+            PopularMovie.from(movieDetail)
         }
+    }
 }

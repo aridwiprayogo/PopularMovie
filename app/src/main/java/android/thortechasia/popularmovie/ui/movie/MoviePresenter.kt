@@ -1,10 +1,10 @@
 package android.thortechasia.popularmovie.ui.movie
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
 import android.thortechasia.popularmovie.data.repository.MovieRepository
 import android.thortechasia.popularmovie.domain.model.PopularMovie
 import android.thortechasia.popularmovie.ui.base.BaseViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.launch
 
 class MoviePresenter(
@@ -26,7 +26,7 @@ class MoviePresenter(
             loading.value = true
             try {
                 loading.value = false
-                movies.value = movieRepository.getPopularMoviesAsync().await()
+                movies.value = movieRepository.getPopularMoviesAsync()
             }catch (err: Throwable){
                 loading.value = false
                 error.value = err

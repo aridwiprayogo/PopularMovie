@@ -1,6 +1,5 @@
 package android.thortechasia.popularmovie.ui.movie
 
-import android.support.v7.widget.RecyclerView
 import android.thortechasia.popularmovie.R
 import android.thortechasia.popularmovie.domain.model.PopularMovie
 import android.thortechasia.popularmovie.utils.Constants
@@ -12,7 +11,7 @@ import kotlinx.android.synthetic.main.item_row_popular_movies.view.*
 
 class MovieAdapter(var movies: List<PopularMovie>,
                    private var listener: (PopularMovie) -> Unit)
-    : RecyclerView.Adapter<MovieViewHolder>() {
+    : androidx.recyclerview.widget.RecyclerView.Adapter<MovieViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, p1: Int): MovieViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
@@ -27,7 +26,7 @@ class MovieAdapter(var movies: List<PopularMovie>,
     }
 }
 
-class MovieViewHolder(view : View) : RecyclerView.ViewHolder(view){
+class MovieViewHolder(view : View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view){
 
     fun bindItems(movie: PopularMovie, listener: (PopularMovie) -> Unit) =
         with(itemView){

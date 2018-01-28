@@ -1,9 +1,9 @@
 package android.thortechasia.popularmovie.data.lokal
 
-import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
 import android.thortechasia.popularmovie.data.remote.PopularMovieModel
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "movie")
 data class PopularMovieEntity(

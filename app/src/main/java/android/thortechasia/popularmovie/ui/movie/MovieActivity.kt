@@ -1,16 +1,15 @@
 package android.thortechasia.popularmovie.ui.movie
 
-import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
 import android.thortechasia.popularmovie.R
 import android.thortechasia.popularmovie.domain.model.PopularMovie
 import android.thortechasia.popularmovie.ui.detail.DetailActivity
 import android.thortechasia.popularmovie.utils.gone
 import android.thortechasia.popularmovie.utils.visible
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_movie.*
 import org.koin.android.ext.android.inject
 
@@ -72,7 +71,7 @@ class MovieActivity : AppCompatActivity() {
             )
         })
         rvPopularMovies.apply {
-            layoutManager = GridLayoutManager(this@MovieActivity, 3)
+            layoutManager = androidx.recyclerview.widget.GridLayoutManager(this@MovieActivity, 3)
             adapter = movieAdapter
         }
     }
