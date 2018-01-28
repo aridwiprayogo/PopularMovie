@@ -12,6 +12,6 @@ class App : Application() {
 
         if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
         startKoin(this, listOf(networkModule, dataModule,
-            presenterModule, schedulerModule, roommModule))
+            presenterModule, schedulerModule, roomModule))
     }
 }

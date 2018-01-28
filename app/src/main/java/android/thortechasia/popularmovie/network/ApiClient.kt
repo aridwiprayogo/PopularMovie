@@ -21,7 +21,7 @@ class ApiClient {
         return retrofit.create(ApiService::class.java)
     }
 
-    fun provideOkHttpClient() : OkHttpClient {
+    private fun provideOkHttpClient() : OkHttpClient {
         return OkHttpClient.Builder()
             .connectTimeout(10, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)

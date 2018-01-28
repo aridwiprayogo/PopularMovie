@@ -1,50 +1,35 @@
 package android.thortechasia.popularmovie.data.repository
 
-import android.thortechasia.popularmovie.data.PopularMovie
-import android.thortechasia.popularmovie.data.local.PopularMovieTable
-import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
+import android.thortechasia.popularmovie.data.lokal.LokalMovieDataSource
+import android.thortechasia.popularmovie.data.remote.RemoteMovieDataSource
+import android.thortechasia.popularmovie.domain.model.PopularMovie
+import android.thortechasia.popularmovie.domain.repository.MovieDataSource
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 
 class MovieRepository(
-    val remoteDataSource: RemoteMovieDataSource,
-    val localDataSource: LocalDataSource
+    private val remoteMovieDataSource: RemoteMovieDataSource,
+    private val localMovieDataSource: LokalMovieDataSource
 ) : MovieDataSource {
 
-    override fun getPopularMovie(): Single<List<PopularMovie>> {
-        return localDataSource.getPopularMovie()
-            .map { list->
-                list.map { PopularMovie.from(it) }
+    override suspend fun getPopularMoviesAsync(): Deferred<List<PopularMovie>> {
+        return withContext(Dispatchers.IO) {
+            async {
+                remoteMovieDataSource.getPopularMoviesAsync().await()
+                    .movies.map {
+                    PopularMovie.from(it)
+                }
             }
-            .flatMap {
-                if (it.isEmpty())getPopularFromRemote() else
-                    Single.just(it)
-            }
-            .doAfterSuccess {
-                getPopularFromRemote()
-                    .subscribeOn(Schedulers.io())
-                    .subscribe({
-                        Timber.d("refresh data")
-                    },{
-                        Timber.e(it)
-                    })
-            }
+        }
     }
 
-    private fun getPopularFromRemote(): Single<List<PopularMovie>>? {
-        return remoteDataSource.getPopularMovie()
-            .doOnSuccess {
-                lokalMovieDataSource.savePopularMovies(it.movies.map { movie ->
-                    PopularMovieEntity.from(movie)
-                })
+    override suspend fun getDetailMovieAsync(id: Int) =
+        withContext(Dispatchers.IO) {
+            async {
+                val movieDetail = localMovieDataSource.getDetailMovie(id).await()
+                return@async PopularMovie.from(movieDetail)
             }
-            .map { list->
-                list.movies.map { PopularMovie.from(it) }
-            }
-    }
-
-    override fun addPopularMovies(movies: List<PopularMovieTable>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
+        }
 }

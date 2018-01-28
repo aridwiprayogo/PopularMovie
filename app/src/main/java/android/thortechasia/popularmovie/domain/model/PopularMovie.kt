@@ -1,4 +1,4 @@
-package android.thortechasia.popularmovie.data
+package android.thortechasia.popularmovie.domain.model
 
 import android.thortechasia.popularmovie.data.lokal.PopularMovieEntity
 import android.thortechasia.popularmovie.data.remote.PopularMovieModel

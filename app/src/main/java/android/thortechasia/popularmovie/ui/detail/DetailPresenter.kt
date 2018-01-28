@@ -1,37 +1,36 @@
 package android.thortechasia.popularmovie.ui.detail
 
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.thortechasia.popularmovie.data.repository.MovieRepository
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
-import io.reactivex.schedulers.Schedulers
+import android.thortechasia.popularmovie.domain.model.PopularMovie
+import android.thortechasia.popularmovie.ui.base.BaseViewModel
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class DetailPresenter(val repository: MovieRepository,
-                      val compositeDisposable: CompositeDisposable
-) : DetailContract.Presenter {
+class DetailPresenter(
+    private val repository: MovieRepository
+) : BaseViewModel(){
 
-    private var mView : DetailContract.View? = null
+    private val movie = MutableLiveData<PopularMovie>()
+    private val loading = MutableLiveData<Boolean>()
+    private val error = MutableLiveData<Throwable>()
 
-    override fun onAttach(view: DetailContract.View) {
-        mView = view
-    }
+    fun movie() = this.movie as LiveData<PopularMovie>
 
-    override fun onDetach() {
-        mView = null
-        compositeDisposable.clear()
-    }
+    fun getDetailMovie(id: Int) {
+        movieJob add launch{
+            loading.value = true
+            try {
+                movie.value = repository.getDetailMovieAsync(id).await()
+            }catch (error: Throwable){
+                Timber.e(error)
+                this@DetailPresenter.error.value = error
+            }finally {
+                loading.value = false
+            }
+        }
 
-    override fun getDetailMovie(id: Int) {
-        repository.getDetailMovie(id)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({
-                mView?.showDetail(it)
-            },{
-                mView?.failureGetDetailMovie(it)
-                Timber.e(it)
-            }).addTo(compositeDisposable)
     }
 
 }

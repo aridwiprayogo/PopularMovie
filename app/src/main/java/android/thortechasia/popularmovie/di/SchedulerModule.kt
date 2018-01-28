@@ -6,5 +6,5 @@ import org.koin.dsl.module.module
 val schedulerModule = module {
 
     factory { CompositeDisposable() }
-
+    single<SchedulerProvider> { AppSchedulerProvider() }
 }

@@ -2,37 +2,37 @@ package android.thortechasia.popularmovie.ui.movie
 
 import android.support.v7.widget.RecyclerView
 import android.thortechasia.popularmovie.R
+import android.thortechasia.popularmovie.domain.model.PopularMovie
 import android.thortechasia.popularmovie.utils.Constants
 import android.thortechasia.popularmovie.utils.loadImage
-import android.thortechasia.popularmovie.data.PopularMovie
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_row_popular_movies.view.*
 
 class MovieAdapter(var movies: List<PopularMovie>,
-                   var listener: (PopularMovie) -> Unit)
+                   private var listener: (PopularMovie) -> Unit)
     : RecyclerView.Adapter<MovieViewHolder>() {
 
-    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): MovieViewHolder {
-        val view = LayoutInflater.from(p0.context)
-            .inflate(R.layout.item_row_popular_movies, p0, false)
+    override fun onCreateViewHolder(viewGroup: ViewGroup, p1: Int): MovieViewHolder {
+        val view = LayoutInflater.from(viewGroup.context)
+            .inflate(R.layout.item_row_popular_movies, viewGroup, false)
         return MovieViewHolder(view)
     }
 
     override fun getItemCount(): Int = movies.size
 
-    override fun onBindViewHolder(p0: MovieViewHolder, p1: Int) {
-        p0.bindItems(movies[p1], listener)
+    override fun onBindViewHolder(viewHolder: MovieViewHolder, position: Int) {
+        viewHolder.bindItems(movies[position], listener)
     }
 }
 
 class MovieViewHolder(view : View) : RecyclerView.ViewHolder(view){
 
-    fun bindItems(movie: PopularMovie,
-                  listener: (PopularMovie) -> Unit) = with(itemView){
-        imgPoster.loadImage(context,
-            "${Constants.BASE_IMAGE_URL}${movie.image}")
+    fun bindItems(movie: PopularMovie, listener: (PopularMovie) -> Unit) =
+        with(itemView){
+
+        imgPoster.loadImage("${Constants.BASE_IMAGE_URL}${movie.image}")
 
         setOnClickListener { listener(movie) }
     }

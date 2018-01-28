@@ -1,44 +1,39 @@
 package android.thortechasia.popularmovie.ui.movie
 
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.thortechasia.popularmovie.data.repository.MovieRepository
-import android.thortechasia.popularmovie.utils.scheduler.SchedulerProvider
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
+import android.thortechasia.popularmovie.domain.model.PopularMovie
+import android.thortechasia.popularmovie.ui.base.BaseViewModel
+import kotlinx.coroutines.launch
 
-class MoviePresenter(val movieRepository: MovieRepository,
-                     val compositeDisposable: CompositeDisposable,
-                     val schedulerProvider: SchedulerProvider) : MovieContract.Presenter {
+class MoviePresenter(
+    private val movieRepository: MovieRepository
+) : BaseViewModel() {
 
-    private var mView: MovieContract.View? = null
+    private val movies = MutableLiveData<List<PopularMovie>>()
+    private val loading = MutableLiveData<Boolean>()
+    private val error = MutableLiveData<Throwable>()
 
-    override fun onAttach(view: MovieContract.View) {
-        mView = view
-    }
+    fun movie() = this.movies as LiveData<List<PopularMovie>>
+    fun loading() = this.loading as LiveData<Boolean>
+    fun error() = this.error as LiveData<Throwable>
 
-    override fun onDetach() {
-        mView = null
-        compositeDisposable.clear()
-    }
 
-    override fun getPopularMovies() {
-        mView?.showLoading()
-        movieRepository.getPopularMovies()
-            .observeOn(schedulerProvider.ui())
-            .subscribeOn(schedulerProvider.io())
-            .subscribeBy(
-            onSuccess = {
-                mView?.hideLoading()
-                mView?.showPopularMovies(it)
-            },
-            onError = {
-                mView?.hideLoading()
-                mView?.failureGetPopularMovies(it)
-                Timber.e(it)
+    fun getPopularMovies() {
+
+        movieJob add launch{
+            loading.value = true
+            try {
+                loading.value = false
+                movies.value = movieRepository.getPopularMoviesAsync().await()
+            }catch (err: Throwable){
+                loading.value = false
+                error.value = err
+            }finally {
+                loading.value = false
             }
-        ).addTo(compositeDisposable)
+        }
+
     }
 }

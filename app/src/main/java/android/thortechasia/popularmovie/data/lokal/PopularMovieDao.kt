@@ -4,7 +4,7 @@ import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
-import io.reactivex.Single
+import kotlinx.coroutines.Deferred
 
 @Dao
 interface PopularMovieDao {
@@ -13,9 +13,9 @@ interface PopularMovieDao {
     fun inserts(movies: List<PopularMovieEntity>)
 
     @Query("SELECT * FROM movie")
-    fun getPopularMovies() : Single<List<PopularMovieEntity>>
+    fun getPopularMovies() : Deferred<List<PopularMovieEntity>>
 
     @Query("SELECT * FROM movie WHERE id = :id")
-    fun getDetailMovie(id: Int) : Single<PopularMovieEntity>
+    fun getDetailMovie(id: Int) : Deferred<PopularMovieEntity>
 
 }
