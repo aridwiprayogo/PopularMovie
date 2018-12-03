@@ -1,6 +1,7 @@
-package android.thortechasia.popularmovie
+package android.thortechasia.popularmovie.ui.movie
 
 import android.support.v7.widget.RecyclerView
+import android.thortechasia.popularmovie.R
 import android.thortechasia.popularmovie.Utils.Constants
 import android.thortechasia.popularmovie.Utils.loadImage
 import android.thortechasia.popularmovie.data.PopularMovieModel
@@ -9,7 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.item_row_popular_movies.view.*
 
-class MovieAdapter(var movies: List<PopularMovieModel.Movies>)
+class MovieAdapter(var movies: List<PopularMovieModel.Movies>,
+                   var listener: (PopularMovieModel.Movies) -> Unit)
     : RecyclerView.Adapter<MovieViewHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): MovieViewHolder {
@@ -21,15 +23,18 @@ class MovieAdapter(var movies: List<PopularMovieModel.Movies>)
     override fun getItemCount(): Int = movies.size
 
     override fun onBindViewHolder(p0: MovieViewHolder, p1: Int) {
-        p0.bindItems(movies[p1])
+        p0.bindItems(movies[p1], listener)
     }
 }
 
 class MovieViewHolder(view : View) : RecyclerView.ViewHolder(view){
 
-    fun bindItems(movie: PopularMovieModel.Movies) = with(itemView){
+    fun bindItems(movie: PopularMovieModel.Movies,
+                  listener: (PopularMovieModel.Movies) -> Unit) = with(itemView){
         imgPoster.loadImage(context,
             "${Constants.BASE_IMAGE_URL}${movie.poster_path}")
+
+        setOnClickListener { listener(movie) }
     }
 
 }
