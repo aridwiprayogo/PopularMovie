@@ -10,6 +10,8 @@ interface MovieContract {
     }
 
     interface View : BaseContract.View {
+        fun showLoading()
+        fun hideLoading()
         fun showPopularMovies(movies: List<PopularMovieModel.Movies>)
     }
 

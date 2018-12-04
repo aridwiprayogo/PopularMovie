@@ -1,6 +1,11 @@
 package android.thortechasia.popularmovie
 
 import android.app.Application
+import android.thortechasia.popularmovie.di.dataModule
+import android.thortechasia.popularmovie.di.networkModule
+import android.thortechasia.popularmovie.di.presenterModule
+import android.thortechasia.popularmovie.di.schedulerModule
+import org.koin.android.ext.android.startKoin
 import timber.log.Timber
 
 class App : Application() {
@@ -9,6 +14,6 @@ class App : Application() {
         super.onCreate()
 
         if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
-
+        startKoin(this, listOf(networkModule, dataModule, presenterModule, schedulerModule))
     }
 }

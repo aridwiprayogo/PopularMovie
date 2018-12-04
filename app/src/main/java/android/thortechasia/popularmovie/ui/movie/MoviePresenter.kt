@@ -21,12 +21,15 @@ class MoviePresenter(val movieRepository: MovieRepository,
     }
 
     override fun getPopularMovies() {
+        mView?.showLoading()
         movieRepository.getPopularMovies().subscribeBy(
             onNext = {
+                mView?.hideLoading()
                 mView?.showPopularMovies(it.movies)
                 Timber.d("success get movie")
             },
             onError = {
+                mView?.hideLoading()
                 Timber.e(it)
             }
         ).addTo(compositeDisposable)

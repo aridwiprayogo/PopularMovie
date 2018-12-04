@@ -4,22 +4,24 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.thortechasia.popularmovie.R
-import android.thortechasia.popularmovie.Utils.Injector
+import android.thortechasia.popularmovie.Utils.gone
+import android.thortechasia.popularmovie.Utils.visible
 import android.thortechasia.popularmovie.data.PopularMovieModel
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_movie.*
+import org.koin.android.ext.android.inject
 
 class MovieActivity : AppCompatActivity(), MovieContract.View {
 
     private lateinit var movieAdapter: MovieAdapter
     private val movieList: MutableList<PopularMovieModel.Movies> = mutableListOf()
-    private lateinit var presenter: MoviePresenter
+
+    private val presenter: MoviePresenter by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie)
 
-        presenter = Injector.provideMoviePresenter()
         onAttachView()
         initRv()
         presenter.getPopularMovies()
@@ -37,6 +39,14 @@ class MovieActivity : AppCompatActivity(), MovieContract.View {
 
     override fun onDetachView() {
         presenter.onDetach()
+    }
+
+    override fun showLoading() {
+        progressBar.visible()
+    }
+
+    override fun hideLoading() {
+        progressBar.gone()
     }
 
     fun initRv() {
