@@ -6,7 +6,8 @@ import android.support.v7.widget.GridLayoutManager
 import android.thortechasia.popularmovie.R
 import android.thortechasia.popularmovie.Utils.gone
 import android.thortechasia.popularmovie.Utils.visible
-import android.thortechasia.popularmovie.data.PopularMovieModel
+import android.thortechasia.popularmovie.data.PopularMovie
+import android.thortechasia.popularmovie.data.remote.PopularMovieModel
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_movie.*
 import org.koin.android.ext.android.inject
@@ -14,7 +15,7 @@ import org.koin.android.ext.android.inject
 class MovieActivity : AppCompatActivity(), MovieContract.View {
 
     private lateinit var movieAdapter: MovieAdapter
-    private val movieList: MutableList<PopularMovieModel.Movies> = mutableListOf()
+    private val movieList: MutableList<PopularMovie> = mutableListOf()
 
     private val presenter: MoviePresenter by inject()
 
@@ -28,7 +29,7 @@ class MovieActivity : AppCompatActivity(), MovieContract.View {
 
     }
 
-    override fun showPopularMovies(movies: List<PopularMovieModel.Movies>) {
+    override fun showPopularMovies(movies: List<PopularMovie>) {
         movieList.addAll(movies)
         movieAdapter.notifyDataSetChanged()
     }
@@ -51,7 +52,7 @@ class MovieActivity : AppCompatActivity(), MovieContract.View {
 
     fun initRv() {
 
-        val lambda : (PopularMovieModel.Movies) -> Unit = {
+        val lambda : (PopularMovie) -> Unit = {
             Toast.makeText(this@MovieActivity, it.title,
             Toast.LENGTH_SHORT).show()
         }

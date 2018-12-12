@@ -64,5 +64,5 @@ dependencies {
     // optional - RxJava support for Room
     implementation "android.arch.persistence.room:rxjava2:$room_version"
 
-    implementation 'com.jakewharton.timber:timber:4.7.1'
+
 }

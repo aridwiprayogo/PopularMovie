@@ -1,6 +1,7 @@
 package android.thortechasia.popularmovie.ui.movie
 
-import android.thortechasia.popularmovie.data.PopularMovieModel
+import android.thortechasia.popularmovie.data.PopularMovie
+import android.thortechasia.popularmovie.data.remote.PopularMovieModel
 import android.thortechasia.popularmovie.ui.base.BaseContract
 
 interface MovieContract {
@@ -12,7 +13,7 @@ interface MovieContract {
     interface View : BaseContract.View {
         fun showLoading()
         fun hideLoading()
-        fun showPopularMovies(movies: List<PopularMovieModel.Movies>)
+        fun showPopularMovies(movies: List<PopularMovie>)
     }
 
 }

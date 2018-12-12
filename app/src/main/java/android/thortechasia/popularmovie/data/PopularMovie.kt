@@ -1,6 +1,6 @@
 package android.thortechasia.popularmovie.data
 
-import android.thortechasia.popularmovie.data.local.PopularMovieTable
+import android.thortechasia.popularmovie.data.lokal.PopularMovieEntity
 import android.thortechasia.popularmovie.data.remote.PopularMovieModel
 
 data class PopularMovie(
@@ -10,13 +10,12 @@ data class PopularMovie(
     val desc: String
 ){
     companion object {
-        fun from(data: PopularMovieTable) =
-                PopularMovie(
-                    data.id,
-                    data.title,
-                    data.poster_path,
-                    data.overview
-                )
+        fun from(data: PopularMovieEntity) = PopularMovie(
+            data.id,
+            data.title,
+            data.image,
+            data.description
+        )
 
         fun from(data: PopularMovieModel.Movies) = PopularMovie(
             data.id,
