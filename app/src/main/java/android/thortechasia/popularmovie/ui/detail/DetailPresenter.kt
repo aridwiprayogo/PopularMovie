@@ -29,6 +29,7 @@ class DetailPresenter(val repository: MovieRepository,
             .subscribe({
                 mView?.showDetail(it)
             },{
+                mView?.failureGetDetailMovie(it)
                 Timber.e(it)
             }).addTo(compositeDisposable)
     }

@@ -2,6 +2,7 @@ package android.thortechasia.popularmovie.ui.movie
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.thortechasia.popularmovie.R
@@ -14,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_movie.*
 import org.koin.android.ext.android.inject
 
 class MovieActivity : AppCompatActivity(), MovieContract.View {
+
 
     private lateinit var movieAdapter: MovieAdapter
     private val movieList: MutableList<PopularMovie> = mutableListOf()
@@ -49,6 +51,10 @@ class MovieActivity : AppCompatActivity(), MovieContract.View {
 
     override fun hideLoading() {
         progressBar.gone()
+    }
+
+    override fun failureGetPopularMovies(throwable: Throwable) {
+        Toast.makeText(this, throwable.message, Toast.LENGTH_SHORT).show()
     }
 
     fun initRv() {

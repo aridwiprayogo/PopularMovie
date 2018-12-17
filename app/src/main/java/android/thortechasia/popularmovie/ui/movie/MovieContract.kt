@@ -14,6 +14,7 @@ interface MovieContract {
         fun showLoading()
         fun hideLoading()
         fun showPopularMovies(movies: List<PopularMovie>)
+        fun failureGetPopularMovies(throwable: Throwable)
     }
 
 }

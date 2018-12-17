@@ -11,6 +11,7 @@ interface DetailContract {
 
     interface View : BaseContract.View {
         fun showDetail(movie: PopularMovie)
+        fun failureGetDetailMovie(throwable: Throwable)
     }
 
 }

@@ -6,6 +6,7 @@ import android.thortechasia.popularmovie.R
 import android.thortechasia.popularmovie.utils.Constants
 import android.thortechasia.popularmovie.utils.loadImage
 import android.thortechasia.popularmovie.data.PopularMovie
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_detail.*
 import org.koin.android.ext.android.inject
 
@@ -41,5 +42,9 @@ class DetailActivity : AppCompatActivity(),  DetailContract.View {
     override fun onDestroy() {
         onDetachView()
         super.onDestroy()
+    }
+
+    override fun failureGetDetailMovie(throwable: Throwable) {
+        Toast.makeText(this, throwable.message, Toast.LENGTH_SHORT).show()
     }
 }
