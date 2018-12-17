@@ -6,7 +6,9 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module.module
 
 val roommModule = module {
-    single { Room.databaseBuilder(androidApplication(), AppDatabase::class.java,"movie_db").build() }
+
+    single { Room.databaseBuilder(androidApplication(),AppDatabase::class.java,
+        "movie_db").build() }
 
     single { get<AppDatabase>().popularMovieDao() }
 

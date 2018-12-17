@@ -1,4 +1,4 @@
-package android.thortechasia.popularmovie.Utils
+package android.thortechasia.popularmovie.utils
 
 import android.content.Context
 import android.view.View

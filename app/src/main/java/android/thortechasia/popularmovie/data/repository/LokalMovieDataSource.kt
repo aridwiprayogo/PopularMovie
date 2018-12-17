@@ -12,4 +12,12 @@ class LokalMovieDataSource(val popularMovieDao: PopularMovieDao) {
         return popularMovieDao.getPopularMovies()
     }
 
+    fun savePopularMovies(movies: List<PopularMovieEntity>){
+        popularMovieDao.inserts(movies)
+    }
+
+    fun getDetailMovie(id: Int) : Single<PopularMovieEntity>{
+        return popularMovieDao.getDetailMovie(id)
+    }
+
 }

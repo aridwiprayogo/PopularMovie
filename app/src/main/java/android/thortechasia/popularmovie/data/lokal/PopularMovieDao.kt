@@ -15,4 +15,7 @@ interface PopularMovieDao {
     @Query("SELECT * FROM movie")
     fun getPopularMovies() : Single<List<PopularMovieEntity>>
 
+    @Query("SELECT * FROM movie WHERE id = :id")
+    fun getDetailMovie(id: Int) : Single<PopularMovieEntity>
+
 }

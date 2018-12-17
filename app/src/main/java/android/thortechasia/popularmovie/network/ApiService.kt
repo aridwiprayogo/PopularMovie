@@ -3,8 +3,7 @@ package android.thortechasia.popularmovie.network
 
 import android.thortechasia.popularmovie.BuildConfig
 import android.thortechasia.popularmovie.data.remote.PopularMovieModel
-import android.thortechasia.popularmovie.Utils.Constants.Companion.POPULAR_MOVIES
-import io.reactivex.Observable
+import android.thortechasia.popularmovie.utils.Constants.Companion.POPULAR_MOVIES
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

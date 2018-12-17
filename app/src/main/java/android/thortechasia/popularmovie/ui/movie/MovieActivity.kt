@@ -1,13 +1,14 @@
 package android.thortechasia.popularmovie.ui.movie
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.thortechasia.popularmovie.R
-import android.thortechasia.popularmovie.Utils.gone
-import android.thortechasia.popularmovie.Utils.visible
+import android.thortechasia.popularmovie.utils.gone
+import android.thortechasia.popularmovie.utils.visible
 import android.thortechasia.popularmovie.data.PopularMovie
-import android.thortechasia.popularmovie.data.remote.PopularMovieModel
+import android.thortechasia.popularmovie.ui.detail.DetailActivity
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_movie.*
 import org.koin.android.ext.android.inject
@@ -55,6 +56,9 @@ class MovieActivity : AppCompatActivity(), MovieContract.View {
         val lambda : (PopularMovie) -> Unit = {
             Toast.makeText(this@MovieActivity, it.title,
             Toast.LENGTH_SHORT).show()
+
+            startActivity(Intent(this@MovieActivity, DetailActivity::class.java)
+                .putExtra("ID", it.id))
         }
 
         movieAdapter = MovieAdapter(movieList, lambda)
