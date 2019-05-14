@@ -1,17 +1,16 @@
 package android.thortechasia.popularmovie
 
+import android.app.Application
 import android.thortechasia.popularmovie.di.*
-import dagger.android.AndroidInjector
-import dagger.android.support.DaggerApplication
 import org.koin.android.ext.android.startKoin
 import timber.log.Timber
 
-class App : DaggerApplication(){
-    private val appComponent: AndroidInjector<App> by lazy {
+class App : Application(){
+    /*private val appComponent: AndroidInjector<App> by lazy {
         DaggerAppComponent
             .builder()
             .create(this)
-    }
+    }*/
 
     override fun onCreate() {
         super.onCreate()
@@ -21,7 +20,7 @@ class App : DaggerApplication(){
             presenterModule, schedulerModule, roomModule))
     }
 
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+   /* override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         return appComponent
-    }
+    }*/
 }

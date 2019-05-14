@@ -3,12 +3,14 @@ package android.thortechasia.popularmovie.ui.movie
 import android.thortechasia.popularmovie.data.repository.MovieRepository
 import android.thortechasia.popularmovie.domain.model.PopularMovie
 import android.thortechasia.popularmovie.ui.base.BaseViewModel
+import android.thortechasia.popularmovie.utils.DispatcherProvider
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.launch
 
 class MoviePresenter(
-    private val movieRepository: MovieRepository
+    private val movieRepository: MovieRepository,
+    private val dispatcherProvider: DispatcherProvider
 ) : BaseViewModel() {
 
     private val movies = MutableLiveData<List<PopularMovie>>()
@@ -22,7 +24,7 @@ class MoviePresenter(
 
     fun getPopularMovies() {
 
-        movieJob add launch{
+        launch(dispatcherProvider.ui()){
             loading.value = true
             try {
                 loading.value = false

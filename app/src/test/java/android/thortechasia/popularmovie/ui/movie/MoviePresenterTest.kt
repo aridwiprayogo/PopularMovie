@@ -2,53 +2,55 @@ package android.thortechasia.popularmovie.ui.movie
 
 import android.thortechasia.popularmovie.data.repository.MovieRepository
 import android.thortechasia.popularmovie.domain.model.PopularMovie
-import kotlinx.coroutines.async
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import org.junit.Before
 import org.junit.Test
 import org.mockito.BDDMockito.given
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 
-class MoviePresenterTest{
+class MoviePresenterTest {
 
     private lateinit var presenter: MoviePresenter
     @Mock
     lateinit var repository: MovieRepository
 
     @Before
-    fun setup(){
+    fun setup() {
         MockitoAnnotations.initMocks(this)
-        presenter = MoviePresenter(repository)
+        presenter = MoviePresenter(repository,TestDispatcherProvider())
     }
 
     @Test
-    fun getPopularMovies(){
-        val movieList = listOf(mock(PopularMovie::class.java))
+    fun getPopularMovies() {
         runBlocking {
+            val movieList = listOf(mock(PopularMovie::class.java))
             //given
-            suspend { given(repository.getPopularMoviesAsync()).willReturn(async { movieList }) }
+            given(repository.getPopularMoviesAsync()).willReturn(movieList)
 
             //when
-            suspend { presenter.getPopularMovies() }
+            presenter.getPopularMovies()
 
             //then
-            suspend { Mockito.verify(repository).getPopularMoviesAsync().await() }
+            verify(repository).getPopularMoviesAsync()
         }
 
     }
 
     @Test
-    fun testGetPopularMoviesFailed(){
+    fun testGetPopularMoviesFailed() {
         val throwable = Throwable("something error")
 
         runBlocking {
 
-            given(repository.getPopularMoviesAsync()).willThrow(async { throwable }.await())
+            given(repository.getPopularMoviesAsync()).willThrow(withContext(Dispatchers.Default) { throwable })
             presenter.getPopularMovies()
-            Mockito.verify(repository).getPopularMoviesAsync().await()
+            Mockito.verify(repository).getPopularMoviesAsync()
         }
 
 

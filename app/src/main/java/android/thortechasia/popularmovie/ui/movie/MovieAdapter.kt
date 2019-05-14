@@ -7,11 +7,12 @@ import android.thortechasia.popularmovie.utils.loadImage
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_row_popular_movies.view.*
 
 class MovieAdapter(var movies: List<PopularMovie>,
                    private var listener: (PopularMovie) -> Unit)
-    : androidx.recyclerview.widget.RecyclerView.Adapter<MovieViewHolder>() {
+    : RecyclerView.Adapter<MovieViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, p1: Int): MovieViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
@@ -26,7 +27,7 @@ class MovieAdapter(var movies: List<PopularMovie>,
     }
 }
 
-class MovieViewHolder(view : View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view){
+class MovieViewHolder(view : View) : RecyclerView.ViewHolder(view){
 
     fun bindItems(movie: PopularMovie, listener: (PopularMovie) -> Unit) =
         with(itemView){
