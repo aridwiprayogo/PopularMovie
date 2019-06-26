@@ -13,11 +13,20 @@ open class MovieRepository(
 ) : MovieDataSource {
 
     override suspend fun getPopularMoviesAsync() = withContext(Dispatchers.IO) {
+        localMovieDataSource.getPopularMovies()
+            .map {
+                when {
+                    it.equals(null) -> return@withContext getPopularMoviesFromRemote()
+                    else -> PopularMovie.from(it)
+                }
+            }
+    }
+
+    private suspend fun getPopularMoviesFromRemote(): List<PopularMovie> =
         remoteMovieDataSource.getPopularMoviesAsync().await()
             .movies.map {
             PopularMovie.from(it)
         }
-    }
 
     override suspend fun getDetailMovieAsync(id: Int) = withContext(Dispatchers.IO) {
         val movieDetail = localMovieDataSource.getDetailMovieAsync(id)

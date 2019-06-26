@@ -6,6 +6,7 @@ import android.thortechasia.popularmovie.ui.base.BaseViewModel
 import android.thortechasia.popularmovie.utils.DispatcherProvider
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
 class MoviePresenter(
@@ -24,7 +25,7 @@ class MoviePresenter(
 
     fun getPopularMovies() {
 
-        launch(dispatcherProvider.ui()){
+        viewModelScope.launch(dispatcherProvider.ui()){
             loading.value = true
             try {
                 loading.value = false

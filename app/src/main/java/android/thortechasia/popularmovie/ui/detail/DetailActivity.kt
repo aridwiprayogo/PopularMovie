@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.thortechasia.popularmovie.R
 import android.thortechasia.popularmovie.domain.model.PopularMovie
 import android.thortechasia.popularmovie.ui.movie.MovieActivity
+import android.thortechasia.popularmovie.utils.Constants
 import android.thortechasia.popularmovie.utils.loadImage
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -21,9 +22,9 @@ class DetailActivity : AppCompatActivity(){
         supportActionBar?.title = "Detail Movie"
 
         presenter.movie().observe(this, Observer<PopularMovie> {
-            textView.text = it?.title
-            image.loadImage(it?.image.toString())
-            textView3.text = it?.desc
+            txt_title.text = it?.title
+            image.loadImage("${Constants.BASE_IMAGE_URL}${it?.image.toString()}")
+            txt_description.text = it?.desc
         })
 
         val id = intent.getIntExtra(MovieActivity.ID_KEY, 0)
