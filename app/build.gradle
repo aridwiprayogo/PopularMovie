@@ -6,6 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'kotlinx-serialization'
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -61,15 +62,16 @@ dependencies {
 //    implementation 'com.google.android.material:material:1.0.0'
 
     //retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.6.0'
 
     //rxjava2
     //implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
 
-
+    //coroutine
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.2'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.2'
 

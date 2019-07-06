@@ -2,6 +2,7 @@ package android.thortechasia.popularmovie.data.remote
 
 import com.google.gson.annotations.SerializedName
 
+
 object PopularMovieModel {
 
     data class Response(

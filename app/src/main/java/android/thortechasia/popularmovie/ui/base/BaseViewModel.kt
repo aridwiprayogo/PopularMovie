@@ -15,9 +15,9 @@ open class BaseViewModel: ViewModel(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Main
 
-    infix fun ArrayList<Job>.add(job: Job){
+    /*infix fun ArrayList<Job>.add(job: Job){
         this.add(job)
-    }
+    }*/
 
     override fun onCleared() {
         super.onCleared()

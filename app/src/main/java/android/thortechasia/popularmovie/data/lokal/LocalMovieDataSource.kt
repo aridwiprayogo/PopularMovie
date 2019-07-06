@@ -1,6 +1,6 @@
 package android.thortechasia.popularmovie.data.lokal
 
-class LokalMovieDataSource(private val popularMovieDao: PopularMovieDao) {
+class LocalMovieDataSource(private val popularMovieDao: PopularMovieDao) {
 
     suspend fun getPopularMovies(): List<PopularMovieEntity> {
         return popularMovieDao.getPopularMoviesAsync()

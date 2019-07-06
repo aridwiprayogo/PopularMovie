@@ -5,6 +5,7 @@ import android.thortechasia.popularmovie.domain.model.PopularMovie
 import android.thortechasia.popularmovie.ui.base.BaseViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -19,7 +20,7 @@ class DetailPresenter(
     fun movie() = this.movie as LiveData<PopularMovie>
 
     fun getDetailMovie(id: Int) {
-        movieJob add launch{
+        viewModelScope.launch{
             loading.value = true
             try {
                 movie.value = repository.getDetailMovieAsync(id)

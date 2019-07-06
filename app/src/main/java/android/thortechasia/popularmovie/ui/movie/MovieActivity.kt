@@ -10,8 +10,11 @@ import android.thortechasia.popularmovie.utils.visible
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_movie.*
 import org.koin.android.ext.android.inject
+import timber.log.Timber
+import androidx.recyclerview.widget.GridLayoutManager
 
 class MovieActivity : AppCompatActivity() {
 
@@ -58,6 +61,7 @@ class MovieActivity : AppCompatActivity() {
 
     private fun failureGetPopularMovies(throwable: Throwable) {
         Toast.makeText(this, throwable.message, Toast.LENGTH_SHORT).show()
+        Timber.e(throwable)
     }
 
     private fun initRv() {
@@ -71,7 +75,7 @@ class MovieActivity : AppCompatActivity() {
             )
         })
         rvPopularMovies.apply {
-            layoutManager = androidx.recyclerview.widget.GridLayoutManager(this@MovieActivity, 3)
+            layoutManager = GridLayoutManager(this@MovieActivity, 3)
             adapter = movieAdapter
         }
     }

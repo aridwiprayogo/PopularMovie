@@ -1,6 +1,7 @@
 package android.thortechasia.popularmovie.data.repository
 
-import android.thortechasia.popularmovie.data.lokal.LokalMovieDataSource
+import android.thortechasia.popularmovie.data.lokal.LocalMovieDataSource
+import android.thortechasia.popularmovie.data.lokal.PopularMovieEntity
 import android.thortechasia.popularmovie.data.remote.RemoteMovieDataSource
 import android.thortechasia.popularmovie.domain.model.PopularMovie
 import android.thortechasia.popularmovie.domain.repository.MovieDataSource
@@ -9,15 +10,18 @@ import kotlinx.coroutines.withContext
 
 open class MovieRepository(
     private val remoteMovieDataSource: RemoteMovieDataSource,
-    private val localMovieDataSource: LokalMovieDataSource
+    private val localMovieDataSource: LocalMovieDataSource
 ) : MovieDataSource {
 
     override suspend fun getPopularMoviesAsync() = withContext(Dispatchers.IO) {
         localMovieDataSource.getPopularMovies()
-            .map {
+            .let{
                 when {
-                    it.equals(null) -> return@withContext getPopularMoviesFromRemote()
-                    else -> PopularMovie.from(it)
+                    it.isEmpty() -> return@withContext getPopularMoviesFromRemote()
+
+                    else -> it.map {
+                        PopularMovie.from(it)
+                    }
                 }
             }
     }
@@ -25,8 +29,19 @@ open class MovieRepository(
     private suspend fun getPopularMoviesFromRemote(): List<PopularMovie> =
         remoteMovieDataSource.getPopularMoviesAsync().await()
             .movies.map {
-            PopularMovie.from(it)
+            PopularMovieEntity.from(it)
+        }.let {
+            saveToLocal(it)
+            it.map {
+                PopularMovie.from(it)
+            }
         }
+
+    private suspend fun saveToLocal(listMovie: List<PopularMovieEntity>) {
+        withContext(Dispatchers.IO){
+            localMovieDataSource.savePopularMovies(listMovie)
+        }
+    }
 
     override suspend fun getDetailMovieAsync(id: Int) = withContext(Dispatchers.IO) {
         val movieDetail = localMovieDataSource.getDetailMovieAsync(id)
