@@ -28,12 +28,12 @@ open class MovieRepository(
 
     private suspend fun getPopularMoviesFromRemote(): List<PopularMovie> =
         remoteMovieDataSource.getPopularMoviesAsync().await()
-            .movies.map {
-            PopularMovieEntity.from(it)
+            .movies.map { movies ->
+            PopularMovieEntity.from(movies)
         }.let {
             saveToLocal(it)
-            it.map {
-                PopularMovie.from(it)
+            it.map { movieEntity ->
+                PopularMovie.from(movieEntity)
             }
         }
 

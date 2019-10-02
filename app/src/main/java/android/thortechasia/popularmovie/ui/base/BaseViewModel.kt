@@ -8,16 +8,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlin.coroutines.CoroutineContext
 
-open class BaseViewModel: ViewModel(), CoroutineScope {
-
-    protected val movieJob = ArrayList<Job>()
-
-    override val coroutineContext: CoroutineContext
-        get() = Main
-
-    /*infix fun ArrayList<Job>.add(job: Job){
-        this.add(job)
-    }*/
+open class BaseViewModel: ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
