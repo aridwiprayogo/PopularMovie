@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_row_popular_movies.view.*
+import kotlinx.android.synthetic.main.movie_list_row_item.view.*
 
 class MovieAdapter(var movies: List<PopularMovie>,
                    private var listener: (PopularMovie) -> Unit)
@@ -16,7 +16,7 @@ class MovieAdapter(var movies: List<PopularMovie>,
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, p1: Int): MovieViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.item_row_popular_movies, viewGroup, false)
+            .inflate(R.layout.movie_list_row_item, viewGroup, false)
         return MovieViewHolder(view)
     }
 

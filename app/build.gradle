@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlinx-serialization'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion 29
@@ -26,6 +27,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    androidExtensions {
+        experimental = true
+    }
 
     testOptions {
         unitTests.returnDefaultValues = true
@@ -36,7 +40,6 @@ dependencies {
     def room_version = '2.2.0'
     def lifecycle_version = "2.1.0"
     def work_version = "2.2.0"
-    def nav_version = '2.1.0'
     def glide_version = '4.10.0'
     def koin_version = '2.0.1'
 
