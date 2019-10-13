@@ -42,7 +42,6 @@ captures/
 .idea/gradle.xml
 .idea/assetWizardSettings.xml
 .idea/misc.xml
-.idea/dictionaries
 .idea/libraries
 # Android Studio 3 in .gitignore file.
 .idea/caches
