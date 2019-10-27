@@ -43,5 +43,5 @@ show popular movie in [The Movie DB](https://www.themoviedb.org)
 ## Todo List
 - implement search movie
 - make beautiful design
-- notification on update movie
+- notification when update movie using work manager
 - implementation dynamic feature for each feature
