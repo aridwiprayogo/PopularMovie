@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Popular Movie</string>
+    <string name="settings">settings</string>
+    <string name="title_fragment_home">home</string>
+    <string name="todo">TODO</string>
+    <string name="release_date">Release Date</string>
+    <string name="title_fragment_favorite">don\'t enter</string>
+    <string name="overview">overview</string>
+    <string name="rating">rating</string>
+    <string name="favorite">favorite</string>
+</resources>

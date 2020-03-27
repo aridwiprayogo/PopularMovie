@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+        app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.aridwiprayogo.popularmovie.ui.movie.HomeFragment"
+        android:label="@string/title_fragment_home"
+        tools:layout="@layout/home_fragment" >
+        <action android:id="@+id/actionFromHomeFragmentToDetailFragment"
+                app:destination="@id/detailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_tv"
+        android:name="com.aridwiprayogo.popularmovie.ui.tv.TvFragment"
+        android:label="@string/title_fragment_tv"
+        tools:layout="@layout/fragment_tv" >
+        <action android:id="@+id/actionFromTvFragmentToDetailFragment"
+                app:destination="@id/detailTvFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_favorite"
+        android:name="com.aridwiprayogo.popularmovie.ui.favorite.FavoriteFragment"
+        android:label="@string/title_fragment_favorite"
+        tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.aridwiprayogo.popularmovie.ui.detail_movie.DetailMovieFragment"
+        android:label="DetailFragment"
+        tools:layout="@layout/fragment_detail"
+    >
+        <argument
+            android:name="PopularMovie"
+            app:argType="com.aridwiprayogo.popularmovie.domain.model.PopularMovie" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.aridwiprayogo.popularmovie.ui.favorite.FavoriteFragment"
+        android:label="settings_fragment"
+        tools:layout="@layout/fragment_favorite" />
+    <fragment android:id="@+id/detailTvFragment"
+              android:name="com.aridwiprayogo.popularmovie.ui.detail_tv.DetailTvFragment"
+              android:label="detail_tv_fragment"
+              tools:layout="@layout/detail_tv_fragment">
+        <argument
+                android:name="tvMovie"
+                app:argType="com.aridwiprayogo.popularmovie.domain.model.TvMovie"/>
+    </fragment>
+    <fragment android:id="@+id/tvFavoriteFragment"
+              android:name="com.aridwiprayogo.popularmovie.ui.favorite.tv.TvFavoriteFragment"
+              android:label="tv_favorite_fragment" tools:layout="@layout/tv_favorite_fragment">
+        <action android:id="@+id/action_tvFavoriteFragment_to_detailTvFragment" app:destination="@id/detailTvFragment"/>
+    </fragment>
+    <fragment
+            android:id="@+id/movieFavoriteFragment"
+            android:name="com.aridwiprayogo.popularmovie.ui.favorite.movie.MovieFavoriteFragment"
+            android:label="movie_fragment"
+            tools:layout="@layout/movie_fragment" >
+        <action
+                android:id="@+id/action_movieFavoriteFragment_to_detailFragment"
+                app:destination="@id/detailFragment" />
+    </fragment>
+</navigation>

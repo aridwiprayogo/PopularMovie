@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Popular Movie</string>
+    <string name="settings" >pengaturan</string>
+    <string name="title_fragment_home" >beranda</string>
+    <string name="title_fragment_favorite" >jangan masuk</string>
+    <string name="release_date">Tanggal rilis</string>
+    <string name="overview">Ringkasan</string>
+    <string name="rating">peringkat</string>
+    <string name="favorite">favorit</string>
+</resources>
