@@ -1,14 +1,15 @@
 package com.aridwiprayogo.popularmovie.ui.favorite.movie
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aridwiprayogo.popularmovie.domain.model.PopularMovie
 import com.aridwiprayogo.popularmovie.domain.repository.MovieRepository
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MovieFavoriteViewModel(private val repository: MovieRepository) : ViewModel() {
+class MovieFavoriteViewModel @Inject constructor(private val repository: MovieRepository) : ViewModel() {
     private val movieFavoriteLiveData = MutableLiveData<List<PopularMovie>>()
     fun getMovieFavorite() = movieFavoriteLiveData as LiveData<List<PopularMovie>>
 

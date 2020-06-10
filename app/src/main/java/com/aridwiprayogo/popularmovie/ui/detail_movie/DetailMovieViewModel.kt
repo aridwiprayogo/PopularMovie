@@ -5,8 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.aridwiprayogo.popularmovie.domain.model.PopularMovie
 import com.aridwiprayogo.popularmovie.domain.repository.MovieRepository
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailMovieViewModel(private val repository: MovieRepository): ViewModel() {
+class DetailMovieViewModel @Inject constructor(private val repository: MovieRepository): ViewModel() {
     fun saveFavorite(popularMovie: PopularMovie) {
         viewModelScope.launch {
             repository.saveFavorite(popularMovie = popularMovie)

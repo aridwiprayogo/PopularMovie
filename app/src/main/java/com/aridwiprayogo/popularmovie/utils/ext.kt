@@ -11,6 +11,7 @@ fun ImageView.loadImage(src: String){
         .load("${BuildConfig.IMAGE_URL}$src")
         .into(this)
 }
+
 fun ImageView.loadImage(@DrawableRes src: Int){
     Glide
         .with(context)

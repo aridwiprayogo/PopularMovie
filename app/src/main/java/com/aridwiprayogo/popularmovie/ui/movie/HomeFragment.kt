@@ -1,45 +1,38 @@
 package com.aridwiprayogo.popularmovie.ui.movie
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aridwiprayogo.popularmovie.R
 import com.aridwiprayogo.popularmovie.domain.model.PopularMovie
+import com.aridwiprayogo.popularmovie.ui.BaseFragment
 import com.aridwiprayogo.popularmovie.utils.gone
 import com.aridwiprayogo.popularmovie.utils.visible
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.home_fragment.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import javax.inject.Inject
 
 
-class HomeFragment : Fragment() {
-
-    private val viewModel: HomeViewModel? by viewModel()
+class HomeFragment : BaseFragment(R.layout.home_fragment) {
+    @Inject lateinit var viewmodelFactory: ViewModelProvider.Factory
+    private val viewModel: HomeViewModel? by viewModels{viewmodelFactory}
     private val listPopularMovie = mutableListOf<PopularMovie>()
 
     private var adapterMovie: PopularMovieAdapter? = null
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.home_fragment, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // TODO: Use the ViewModel
 
         viewModel?.run {
-            getPopularMovieData().observe(viewLifecycleOwner, ::popularMovieObserver.invoke())
-            getLoading().observe(viewLifecycleOwner, ::getLoadingObserver.invoke())
-            getError().observe(viewLifecycleOwner, ::errorObserver.invoke())
+            popularMovieData.observe(viewLifecycleOwner, ::popularMovieObserver.invoke())
+            loading.observe(viewLifecycleOwner, ::getLoadingObserver.invoke())
+            error.observe(viewLifecycleOwner, ::errorObserver.invoke())
             getPopularMovie()
         }
 

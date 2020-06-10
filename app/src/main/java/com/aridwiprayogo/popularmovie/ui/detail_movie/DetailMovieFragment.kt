@@ -1,33 +1,22 @@
 package com.aridwiprayogo.popularmovie.ui.detail_movie
 
 import android.os.Bundle
-import android.view.*
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.navigateUp
 import com.aridwiprayogo.popularmovie.R
 import com.aridwiprayogo.popularmovie.domain.model.PopularMovie
+import com.aridwiprayogo.popularmovie.ui.BaseFragment
 import com.aridwiprayogo.popularmovie.utils.loadImage
 import kotlinx.android.synthetic.main.fragment_detail.*
-import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DetailMovieFragment : Fragment(), AppBarConfiguration.OnNavigateUpListener {
+class DetailMovieFragment : BaseFragment(R.layout.fragment_detail), AppBarConfiguration.OnNavigateUpListener {
 
     private val args by navArgs<DetailMovieFragmentArgs>()
     private lateinit var popularMovie: PopularMovie
     private val viewModel by viewModel<DetailMovieViewModel>()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_detail, container, false)!!
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

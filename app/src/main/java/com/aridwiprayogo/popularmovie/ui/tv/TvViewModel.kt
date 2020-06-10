@@ -8,8 +8,9 @@ import com.aridwiprayogo.popularmovie.domain.model.TvMovie
 import com.aridwiprayogo.popularmovie.domain.repository.TvRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class TvViewModel(private val repository: TvRepository) : ViewModel() {
+class TvViewModel @Inject constructor(private val repository: TvRepository) : ViewModel() {
     private val listTvMovieLiveData = MutableLiveData<List<TvMovie>>()
     private val loadingLiveData = MutableLiveData<Boolean>()
     private val errorLiveData = MutableLiveData<Exception>()

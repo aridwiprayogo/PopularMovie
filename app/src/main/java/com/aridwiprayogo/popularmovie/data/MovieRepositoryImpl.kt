@@ -7,8 +7,9 @@ import com.aridwiprayogo.popularmovie.domain.model.PopularMovie
 import com.aridwiprayogo.popularmovie.domain.repository.MovieRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class MovieRepositoryImpl(
+class MovieRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalMovieDataSource
 ) : MovieRepository {

@@ -6,36 +6,37 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aridwiprayogo.popularmovie.domain.model.PopularMovie
 import com.aridwiprayogo.popularmovie.domain.repository.MovieRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class HomeViewModel(private val repository: MovieRepository) : ViewModel() {
+class HomeViewModel @Inject constructor(private val repository: MovieRepository,
+                                        private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.Main
+) : ViewModel() {
     // TODO: Implement the ViewModel
     private val listMovieLiveData = MutableLiveData<List<PopularMovie>>()
     private val loadingLiveData = MutableLiveData<Boolean>()
     private val errorLiveData = MutableLiveData<Exception>()
 
-    internal fun getPopularMovieData()=
-        listMovieLiveData as LiveData<List<PopularMovie>>
+    internal val popularMovieData get() = listMovieLiveData as LiveData<List<PopularMovie>>
 
-    internal fun getLoading()=
-        loadingLiveData as LiveData<Boolean>
+    internal val loading get() = loadingLiveData as LiveData<Boolean>
 
-    internal fun getError()=
-        errorLiveData as LiveData<Exception>
+    internal val error get() = errorLiveData as LiveData<Exception>
 
     fun getPopularMovie(){
-        viewModelScope.launch(Dispatchers.Main) {
-            loadingLiveData.value=true
+        viewModelScope.launch(coroutineDispatcher) {
+            loadingLiveData.postValue(true)
             try {
                 val movie = repository.getPopularMovie()
                 Timber.d(movie.toString())
-                loadingLiveData.value=false
+                loadingLiveData.postValue(false)
                 listMovieLiveData.postValue(movie)
             }catch (err: Exception){
                 Timber.e(err.localizedMessage)
-                loadingLiveData.value=false
+                loadingLiveData.postValue(false)
                 errorLiveData.postValue(err)
             }
         }

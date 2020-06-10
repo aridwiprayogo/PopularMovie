@@ -8,8 +8,9 @@ import com.aridwiprayogo.popularmovie.domain.model.TvMovie
 import com.aridwiprayogo.popularmovie.domain.repository.TvRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class TvFavoriteViewModel(private val repository: TvRepository) : ViewModel() {
+class TvFavoriteViewModel @Inject constructor(private val repository: TvRepository) : ViewModel() {
     private val tvFavoriteLiveData = MutableLiveData<List<TvMovie>>()
     fun getTvFavorite() = tvFavoriteLiveData as LiveData<List<TvMovie>>
     init{
