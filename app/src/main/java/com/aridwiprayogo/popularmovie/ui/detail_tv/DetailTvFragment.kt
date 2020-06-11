@@ -2,19 +2,20 @@ package com.aridwiprayogo.popularmovie.ui.detail_tv
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.aridwiprayogo.popularmovie.R
 import com.aridwiprayogo.popularmovie.domain.model.TvMovie
 import com.aridwiprayogo.popularmovie.ui.BaseFragment
 import com.aridwiprayogo.popularmovie.utils.loadImage
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.content_detail_tv.*
 import kotlinx.android.synthetic.main.detail_tv_fragment.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
-
+@AndroidEntryPoint
 class DetailTvFragment : BaseFragment(R.layout.detail_tv_fragment) {
-    private val viewModel by viewModel<DetailTvViewModel>()
+    private val viewModel by viewModels<DetailTvViewModel>()
     private val args: DetailTvFragmentArgs by navArgs()
     private lateinit var tvMovie: TvMovie
 

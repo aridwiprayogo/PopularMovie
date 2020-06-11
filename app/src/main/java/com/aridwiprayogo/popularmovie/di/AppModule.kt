@@ -25,12 +25,16 @@ import com.aridwiprayogo.popularmovie.data.remote.ApiClient
 import com.aridwiprayogo.popularmovie.data.remote.ApiService
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
 const val DATABASE_NAME = "Popular Movie"
 @Module
+@InstallIn(ApplicationComponent::class)
 class AppModule{
     @Provides
     @Singleton
@@ -38,11 +42,11 @@ class AppModule{
 
     @Provides
     @Singleton
-    fun provideMovieDao(context: Context): MovieDao =
+    fun provideMovieDao(@ApplicationContext context: Context): MovieDao =
         popularMovieDatabase(context).movieDao()
     @Provides
     @Singleton
-    fun provideTvDao(context: Context): TvDao =
+    fun provideTvDao(@ApplicationContext context: Context): TvDao =
         popularMovieDatabase(context).tvDao()
 
     private fun popularMovieDatabase(context: Context) =

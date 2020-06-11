@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aridwiprayogo.popularmovie.R
@@ -13,15 +12,13 @@ import com.aridwiprayogo.popularmovie.domain.model.PopularMovie
 import com.aridwiprayogo.popularmovie.ui.BaseFragment
 import com.aridwiprayogo.popularmovie.utils.gone
 import com.aridwiprayogo.popularmovie.utils.visible
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.home_fragment.*
-import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class HomeFragment : BaseFragment(R.layout.home_fragment) {
-    @Inject lateinit var viewmodelFactory: ViewModelProvider.Factory
-    private val viewModel: HomeViewModel? by viewModels{viewmodelFactory}
-    private val listPopularMovie = mutableListOf<PopularMovie>()
+    private val viewModel: HomeViewModel? by viewModels()
 
     private var adapterMovie: PopularMovieAdapter? = null
 
@@ -39,8 +36,8 @@ class HomeFragment : BaseFragment(R.layout.home_fragment) {
     }
 
     private val popularMovieObserver = Observer<List<PopularMovie>> { movie ->
-        listPopularMovie.addAll(movie)
-        adapterMovie = PopularMovieAdapter(listPopularMovie) { popularMovie ->
+
+        adapterMovie = PopularMovieAdapter(movie) { popularMovie ->
             val action =
                 HomeFragmentDirections.actionFromHomeFragmentToDetailFragment(popularMovie)
             findNavController().navigate(action)

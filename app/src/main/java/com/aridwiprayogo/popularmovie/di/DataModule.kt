@@ -1,17 +1,15 @@
 package com.aridwiprayogo.popularmovie.di
 
-import com.aridwiprayogo.popularmovie.data.MovieRepositoryImpl
-import com.aridwiprayogo.popularmovie.data.TvRepositoryImpl
 import com.aridwiprayogo.popularmovie.data.local.movie.LocalMovieDataSource
 import com.aridwiprayogo.popularmovie.data.local.movie.LocalMovieDataSourceImpl
 import com.aridwiprayogo.popularmovie.data.local.tv.LocalTvDataSource
 import com.aridwiprayogo.popularmovie.data.local.tv.LocalTvDataSourceImpl
 import com.aridwiprayogo.popularmovie.data.remote.RemoteDataSource
 import com.aridwiprayogo.popularmovie.data.remote.RemoteDataSourceImpl
-import com.aridwiprayogo.popularmovie.domain.repository.MovieRepository
-import com.aridwiprayogo.popularmovie.domain.repository.TvRepository
 import dagger.Binds
 import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import javax.inject.Singleton
 
 //import com.aridwiprayogo.popularmovie.data.MovieRepositoryImpl
@@ -39,6 +37,7 @@ import javax.inject.Singleton
 //}
 
 @Module
+@InstallIn(ApplicationComponent::class)
 abstract class DataModule{
     @Binds
     @Singleton
@@ -49,12 +48,5 @@ abstract class DataModule{
     @Binds
     @Singleton
     abstract fun bindRemoteDataSource(localDataSource: RemoteDataSourceImpl): RemoteDataSource
-
-    @Binds
-    @Singleton
-    abstract fun bindMovieRepository(movieRepository: MovieRepositoryImpl): MovieRepository
-
-    @Binds
-    @Singleton
-    abstract fun bindTvRepository(tvRepository: TvRepositoryImpl): TvRepository
 }
+

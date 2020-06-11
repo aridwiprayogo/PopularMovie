@@ -3,6 +3,7 @@ package com.aridwiprayogo.popularmovie.ui.tv
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -11,14 +12,15 @@ import com.aridwiprayogo.popularmovie.domain.model.TvMovie
 import com.aridwiprayogo.popularmovie.ui.BaseFragment
 import com.aridwiprayogo.popularmovie.utils.gone
 import com.aridwiprayogo.popularmovie.utils.visible
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_tv.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@AndroidEntryPoint
 class TvFragment : BaseFragment(R.layout.fragment_tv) {
 
     private val listTvMovie = mutableListOf<TvMovie>()
-    private val viewModel: TvViewModel? by viewModel()
+    private val viewModel: TvViewModel? by viewModels()
     private lateinit var tvAdapter: TvAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

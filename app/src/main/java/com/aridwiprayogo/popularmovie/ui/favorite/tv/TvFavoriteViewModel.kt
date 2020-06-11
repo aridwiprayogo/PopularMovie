@@ -1,5 +1,6 @@
 package com.aridwiprayogo.popularmovie.ui.favorite.tv
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,9 +9,8 @@ import com.aridwiprayogo.popularmovie.domain.model.TvMovie
 import com.aridwiprayogo.popularmovie.domain.repository.TvRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
-class TvFavoriteViewModel @Inject constructor(private val repository: TvRepository) : ViewModel() {
+class TvFavoriteViewModel @ViewModelInject constructor(private val repository: TvRepository) : ViewModel() {
     private val tvFavoriteLiveData = MutableLiveData<List<TvMovie>>()
     fun getTvFavorite() = tvFavoriteLiveData as LiveData<List<TvMovie>>
     init{

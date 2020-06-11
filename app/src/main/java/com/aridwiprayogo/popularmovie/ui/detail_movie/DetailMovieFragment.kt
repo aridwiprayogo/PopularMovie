@@ -2,6 +2,7 @@ package com.aridwiprayogo.popularmovie.ui.detail_movie
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.AppBarConfiguration
@@ -9,14 +10,15 @@ import com.aridwiprayogo.popularmovie.R
 import com.aridwiprayogo.popularmovie.domain.model.PopularMovie
 import com.aridwiprayogo.popularmovie.ui.BaseFragment
 import com.aridwiprayogo.popularmovie.utils.loadImage
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_detail.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@AndroidEntryPoint
 class DetailMovieFragment : BaseFragment(R.layout.fragment_detail), AppBarConfiguration.OnNavigateUpListener {
 
     private val args by navArgs<DetailMovieFragmentArgs>()
     private lateinit var popularMovie: PopularMovie
-    private val viewModel by viewModel<DetailMovieViewModel>()
+    private val viewModel by viewModels<DetailMovieViewModel>()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

@@ -1,5 +1,6 @@
 package com.aridwiprayogo.popularmovie.ui.movie
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,10 +11,9 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
-class HomeViewModel @Inject constructor(private val repository: MovieRepository,
-                                        private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.Main
+class HomeViewModel @ViewModelInject constructor(private val repository: MovieRepository,
+                                                 private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {
     // TODO: Implement the ViewModel
     private val listMovieLiveData = MutableLiveData<List<PopularMovie>>()
