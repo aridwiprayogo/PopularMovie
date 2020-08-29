@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        package="com.aridwiprayogo.popularmovie">
+        package="com.aridwiprayogo.popularmovie"
+        android:versionCode="29">
 
     <uses-permission android:name="android.permission.INTERNET" />
 

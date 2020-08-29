@@ -10,7 +10,7 @@ import com.aridwiprayogo.popularmovie.data.local.tv.TvEntity
 @Database(
     entities = [MovieEntity::class, TvEntity::class],
     version = 1,
-    exportSchema = true
+    exportSchema = false
 )
 abstract class PopularMovieDatabase: RoomDatabase() {
     abstract fun movieDao(): MovieDao

@@ -1,40 +1,27 @@
 package com.aridwiprayogo.popularmovie.ui.favorite.movie
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.aridwiprayogo.popularmovie.R
-import com.aridwiprayogo.popularmovie.ui.movie.HomeFragmentDirections
+import com.aridwiprayogo.popularmovie.ui.BaseFragment
 import com.aridwiprayogo.popularmovie.ui.movie.PopularMovieAdapter
-import kotlinx.android.synthetic.main.movie_fragment.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.movie_favorite_fragment.*
 
-class MovieFavoriteFragment : Fragment() {
+@AndroidEntryPoint
+class MovieFavoriteFragment : BaseFragment(R.layout.movie_favorite_fragment) {
 
     companion object {
         fun newInstance() = MovieFavoriteFragment()
     }
 
-    private  val favoriteViewModel by viewModel<MovieFavoriteViewModel>()
+    private  val favoriteViewModel by viewModels<MovieFavoriteViewModel>()
     private lateinit var movieAdapter: PopularMovieAdapter
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-
-        return inflater.inflate(R.layout.movie_fragment, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

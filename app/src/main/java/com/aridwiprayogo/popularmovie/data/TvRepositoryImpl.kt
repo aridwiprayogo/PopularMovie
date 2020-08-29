@@ -5,8 +5,9 @@ import com.aridwiprayogo.popularmovie.data.local.tv.TvEntity
 import com.aridwiprayogo.popularmovie.data.remote.RemoteDataSource
 import com.aridwiprayogo.popularmovie.domain.model.TvMovie
 import com.aridwiprayogo.popularmovie.domain.repository.TvRepository
+import javax.inject.Inject
 
-class TvRepositoryImpl(
+class TvRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalTvDataSource
 ): TvRepository {

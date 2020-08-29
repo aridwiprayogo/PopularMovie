@@ -3,8 +3,9 @@ import com.aridwiprayogo.popularmovie.data.local.LocalDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class LocalMovieDataSourceImpl(private val movieDao: MovieDao): LocalMovieDataSource {
+class LocalMovieDataSourceImpl @Inject constructor(private val movieDao: MovieDao): LocalMovieDataSource {
     override suspend fun saveFavorite(entity: MovieEntity) {
         withContext(Dispatchers.IO){ movieDao.saveMovie(entity) }
     }

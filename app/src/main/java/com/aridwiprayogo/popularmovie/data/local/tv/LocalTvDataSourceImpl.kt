@@ -1,8 +1,9 @@
 package com.aridwiprayogo.popularmovie.data.local.tv
 
 import com.aridwiprayogo.popularmovie.data.local.LocalDataSource
+import javax.inject.Inject
 
-class LocalTvDataSourceImpl(private val tvDao: TvDao): LocalTvDataSource {
+class LocalTvDataSourceImpl @Inject constructor(private val tvDao: TvDao): LocalTvDataSource {
     override suspend fun saveFavorite(entity: TvEntity) {
         tvDao.saveTv(entity)
     }
